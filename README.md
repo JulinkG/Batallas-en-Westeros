@@ -1,5 +1,5 @@
 # Batallas en Westeros
-¿En dónde deberías construir tu casa en Westeros? Yo elegiría un lugar con pocas probabilidades de formar parte de una batalla entre casas
+¿En dónde deberías construir tu casa en Westeros? Yo elegiría un lugar con pocas probabilidades bélicas.
 
 
 Código aquí: https://github.com/JulinkG/Batallas-en-Westeros/blob/main/Proyecto.rmd
