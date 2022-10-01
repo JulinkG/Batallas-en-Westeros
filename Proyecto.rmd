@@ -92,3 +92,7 @@ Mapa +
     
 ```
 
+```{r}
+ggsave("Mapa.jpg", last_plot())
+```
+
