@@ -8,4 +8,4 @@ Descarga de mapas aquí: https://www.cartographersguild.com/showthread.php?t=304
 Descarga de datos aquí: https://www.kaggle.com/code/prajjwalsinha009/game-of-thrones-first-notebook/data
 
 
-![Mapa Westeros](){width='100px'}
+![Mapa Westeros](https://github.com/JulinkG/Batallas-en-Westeros/blob/main/Mapa.jpg)
