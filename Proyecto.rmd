@@ -1,0 +1,94 @@
+---
+title: "Mapa Westeros"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(sf)
+library(ggthemes)
+library(ggrepel)
+library(sp)
+
+
+```
+
+# Se crea el data frame con nuestra base de datos
+
+```{r}
+Data <- data.frame(read.csv("battles.csv"))
+Data
+```
+
+# Agrupamos nuestros datos útiles, en este caso se descartarán las emboscadas
+
+```{r}
+Batallas <- Data %>% filter( battle_type %in% c("pitched battle","siege"))
+N_batallas_region <- Batallas %>% group_by(region) %>% count()
+sum(N_batallas_region$n)
+N_batallas_region
+```
+# Cargamos los archivos .shp
+
+# Mediante Read_sf
+
+```{r}
+continents1 <- read_sf("map/continents.shp")
+islands1 <-read_sf("map/islands.shp")
+lakes1 <- read_sf("map/lakes.shp")
+landscape1 <- read_sf("map/landscape.shp")
+locations1 <- read_sf("map/locations.shp")
+Areas1 <- read_sf("map/officialMapAreas.shp")
+political1 <-  read_sf("map/political.shp")
+regions1 <- read_sf("map/regions.shp")
+rivers1 <- read_sf("map/rivers.shp")
+roads1 <- read_sf("map/roads.shp")
+wall1 <- read_sf("map/wall.shp")
+```
+
+
+# Estandarizamos los datos de regiones
+
+```{r}
+Batallas_region <- data.frame(
+    "name" = political$name,
+    "batallas" = c(0,11,0,1,6,0,0,3,0,1,2,1)
+)
+sum(Batallas_region$batallas)
+Batallas_region
+```
+
+
+
+# Se comienza el ploteo
+
+
+
+```{r}
+join_batallas <- political1 %>% 
+    inner_join(Batallas_region)
+```
+```{r}
+
+  Mapa <- ggplot() +
+  geom_sf(data=continents1, color = "#CDAA7D", fill = "burlywood4") +
+  geom_sf(data=lakes1, color = "cadetblue3", fill = "#C6E2FF") +
+  geom_sf(data=rivers1, color = "cadetblue3", fill = "#C6E2FF") +
+  geom_sf(data = islands1, color = "#CDAA7D", fill = "burlywood4") +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#DBDBDB"))
+ 
+```
+
+```{r}
+Mapa +
+    geom_sf(data=join_batallas, aes(fill=batallas), alpha = .4, show.legend = T) +
+     scale_fill_gradient(low="green",high="red") +
+     labs(x = "New x axis label", y = "New y axis label",
+         title ="     Lugares bélicos de Westeros",
+          caption = "By JulinkG",)
+        
+    
+```
+
